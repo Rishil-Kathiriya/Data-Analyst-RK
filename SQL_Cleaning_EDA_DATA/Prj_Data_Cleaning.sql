@@ -1,5 +1,6 @@
 use world_layoffs;
 
+
 select * from layoffs;
 
 
@@ -7,7 +8,6 @@ select * from layoffs;
 -- 2. Standardize the Data
 -- 3. Null Value or Blank values
 -- 4. Remove Unneccesary Columns
-
 
 
 create table layoff_staging like layoffs;
@@ -33,8 +33,6 @@ from layoff_staging
  select * from cte_duplicate where Row_num > 1;
  
  
-
- 
  CREATE TABLE `layoff_staging2` (
   `company` text,
   `location` text,
@@ -48,14 +46,19 @@ from layoff_staging
   `Row_num` int 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+
 insert into layoff_staging2
 select *, 
 Row_number() over(partition by company,location,industry,total_laid_off,percentage_laid_off,`date`,
 stage,country,funds_raised_millions) as Row_num
 from layoff_staging;
 
+
 select * from layoff_staging2;
+
 select * from layoff_staging2 where Row_num > 1;
+
 
 delete from layoff_staging2 where Row_num > 1;
 
@@ -69,9 +72,14 @@ update layoff_staging2 set company=trim(company);
 select distinct industry from layoff_staging2 order by 1;
 select * from layoff_staging2 where industry like 'crypto%';
 update layoff_staging2 set industry='Crypto' where industry like 'crypto%';
- 
+
+
+
+
 select distinct country from layoff_staging2 order by 1;
+
 select * from layoff_staging2 where country like 'United states.%';
+
 update layoff_staging2 set country='United states' where country like 'United states%';
 -- or 
 select distinct country,trim(trailing '.' from country) from layoff_staging2 order by 1;
@@ -88,7 +96,8 @@ alter table layoff_staging2 modify column `date` Date;
 select * from layoff_staging2; 
  
  
- 
+
+
  
 -- 3. Null Value or Blank values
  
