@@ -2,7 +2,9 @@
 
 use world_layoffs;
 
+
 select * from layoff_staging2;
+
 
 -- 1 percentage_laid_off = 100%
 select max(total_laid_off),max(percentage_laid_off) from layoff_staging2;
@@ -73,6 +75,7 @@ select * ,dense_rank() over(partition by Years order by Total_laid_off desc) as 
 from Rank_company2;#order by Ranking;
 
 
+
 with Rank_company2(Company,Years,Total_laid_off) as
 (
 select company,year(`date`),sum(total_laid_off) 
@@ -86,6 +89,10 @@ select * ,dense_rank() over(partition by Years order by Total_laid_off desc) as 
 from Rank_company2
 )
 select * from Company_Rank_Year where Ranking <= 5;
+
+
+
+
 
 
 
