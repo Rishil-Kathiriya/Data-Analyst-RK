@@ -129,12 +129,17 @@ select * from layoff_staging2;
  
  select * from layoff_staging2;
  
- 
+
+
+
 -- 4. Remove Unneccesary Columns
+
 
  select * from layoff_staging2 where total_laid_off is null
  and percentage_laid_off is null;
- 
+
+
+
  delete 
  from layoff_staging2 where total_laid_off is null
  and percentage_laid_off is null;
@@ -144,3 +149,4 @@ select * from layoff_staging2;
  
  select * from layoff_staging2;
  
+
