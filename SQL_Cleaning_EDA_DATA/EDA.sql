@@ -1,3 +1,4 @@
+
 -- EDA = Exploratory Data Analysis
 
 use world_layoffs;
@@ -13,6 +14,7 @@ select * from layoff_staging2 where percentage_laid_off = 1 order by total_laid_
 
 select company,sum(total_laid_off) as total_laid_off from layoff_staging2 
 group by company order by total_laid_off desc;
+
 select industry,sum(total_laid_off) from layoff_staging2 group by industry order by 2 desc;
 select country,sum(total_laid_off) from layoff_staging2 group by country order by 2 desc;
 
@@ -44,6 +46,8 @@ having month_year is not null
 select month_year,sum(total_laid_off) ,sum(total_laid_off)
 over(order by month_year) as Rolling_Total_
 from Rolling_Total group by month_year;
+
+
 
 
 
