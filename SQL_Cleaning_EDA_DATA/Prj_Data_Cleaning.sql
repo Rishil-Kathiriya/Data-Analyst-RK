@@ -4,6 +4,7 @@ use world_layoffs;
 select * from layoffs;
 
 
+
 -- 1. Remove Duplicates
 -- 2. Standardize the Data
 -- 3. Null Value or Blank values
